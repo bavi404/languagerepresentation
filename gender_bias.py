@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Load embeddings
-def load_fasttext_embeddings(glove_file):
+def load_fasttext_embeddings(fasttext_file):
     embeddings = {}
     with open(fasttext_file, "r", encoding="utf-8") as f:
         for line in f:
