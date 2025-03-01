@@ -20,10 +20,10 @@ def preprocess_corpus(input_folder, output_file):
     
     print(f"Found files: {sentence_files}")
 
-    # ✅ Load stopwords as a **set** (MUCH FASTER than a list)
+    # Load stopwords as a **set** (MUCH FASTER than a list)
     stop_words = set(stopwords.words("english"))
 
-    # ✅ Process each file efficiently
+    # Process each file efficiently
     total_sentences = 0
     with open(output_file, "w", encoding="utf-8") as output_f:
         for file in sentence_files:
@@ -34,20 +34,20 @@ def preprocess_corpus(input_folder, output_file):
                     parts = line.strip().split("\t")
                     sentence = parts[-1] if len(parts) > 1 else parts[0]  # Extract correct column
                     
-                    # ✅ Preprocess the sentence
+                    # Preprocess the sentence
                     sentence = sentence.lower()
                     sentence = re.sub(r"[^\w\s]", "", sentence)  # Remove punctuation
                     words = word_tokenize(sentence)
                     words = [word for word in words if word not in stop_words]  # Faster stopword removal
 
-                    # ✅ Write only non-empty sentences to the output file
+                    # Write only non-empty sentences to the output file
                     if words:
                         output_f.write(" ".join(words) + "\n")
                         total_sentences += 1
 
     print(f"Preprocessing complete! {total_sentences} sentences saved in '{output_file}'.")
 
-# ✅ Run script if executed directly
+#  Run script 
 if __name__ == "__main__":
     input_folder = r"C:\Users\bavi0\OneDrive\Documents\assignemnt-precog\eng_news_2024_300K"
     
