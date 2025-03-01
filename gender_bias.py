@@ -1,10 +1,10 @@
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Load GloVe embeddings
-def load_glove_embeddings(glove_file):
+# Load embeddings
+def load_fasttext_embeddings(glove_file):
     embeddings = {}
-    with open(glove_file, "r", encoding="utf-8") as f:
+    with open(fasttext_file, "r", encoding="utf-8") as f:
         for line in f:
             values = line.strip().split()
             word = values[0].lower()
@@ -12,7 +12,7 @@ def load_glove_embeddings(glove_file):
             embeddings[word] = vector
     return embeddings
 
-glove_embeddings = load_glove_embeddings("cc.en.300.vec")
+glove_embeddings = load_fasttext_embeddings("cc.en.300.vec")
 
 # Define gendered word sets
 male_words = ["man", "he", "him", "father", "boy", "brother"]
@@ -24,10 +24,10 @@ professions = ["doctor", "nurse", "engineer", "teacher", "CEO", "homemaker"]
 # Compute Bias Score for each profession
 bias_scores = {}
 for profession in professions:
-    if profession in glove_embeddings:
-        prof_vec = glove_embeddings[profession].reshape(1, -1)
-        male_sim = np.mean([cosine_similarity(prof_vec, glove_embeddings[m].reshape(1, -1))[0][0] for m in male_words if m in glove_embeddings])
-        female_sim = np.mean([cosine_similarity(prof_vec, glove_embeddings[f].reshape(1, -1))[0][0] for f in female_words if f in glove_embeddings])
+    if profession in fasttext_embeddings:
+        prof_vec = fasttext_embeddings[profession].reshape(1, -1)
+        male_sim = np.mean([cosine_similarity(prof_vec, fasttext_embeddings[m].reshape(1, -1))[0][0] for m in male_words if m in fasttext_embeddings])
+        female_sim = np.mean([cosine_similarity(prof_vec, fasttext_embeddings[f].reshape(1, -1))[0][0] for f in female_words if f in fasttext_embeddings])
         bias_scores[profession] = male_sim - female_sim
 
 # Print results
