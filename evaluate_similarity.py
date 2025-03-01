@@ -54,7 +54,7 @@ if __name__ == "__main__":
     embeddings, vocab = load_embeddings("word_embeddings_win5.npy", "vocab_win5.npy")
     
     simlex_path = "SimLex-999.txt"
-    wordsim_path = "wordsim353/combined.tab"  # ✅ Corrected file path for WordSimilarity-353
+    wordsim_path = "wordsim353/combined.tab"  # Corrected file path for WordSimilarity-353
 
     print("Evaluating using SimLex-999...")
     evaluate_embedding_quality(simlex_path, embeddings, vocab)
